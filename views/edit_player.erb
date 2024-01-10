@@ -1,0 +1,9 @@
+<form action="/teams/<%= @team_id%>/players/<%= @player_id %>" method="post" class="edit">
+  <label for="player_name">Edit Name</label>
+  <input name="player_name" value="<%= @player_name || @player[:name] %>" type="text">
+
+  <label for="points">Edit Total Score for the Season:</label>
+  <input name="points" placeholder="0" value="<%= @points || @player[:points] %>" type="text">
+  
+  <button type="submit">Submit Edits</button>
+</form>

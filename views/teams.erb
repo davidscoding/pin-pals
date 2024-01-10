@@ -1,0 +1,38 @@
+<ul id="teams">
+  <h1> The Bowling LEAGUE!! </h1>
+
+  <% @page_teams.each_with_index do |team, index| %>
+    <li>
+      <h2> Team Number <%= index + 1 + ((@page_num - 1) * ITEMS_PER_PAGE) %>:</h2>
+
+      <a href="/teams/<%= team[:id] %>/page/1">
+        <h2><%= team[:name] %></h2>
+      </a>
+
+      <p> Total Team score: <%= team[:points] %> </p>
+
+      <form action="/teams/<%= team[:id]%>/delete" method="post" class="delete">
+        <button type="submit">Delete Team</button>
+      </form>
+      <form action="/teams/<%= team[:id]%>/edit" method="get" class="edit">
+        <button type="submit">Edit Team</button>
+      </form>
+    </li>
+  <% end %>
+</ul>
+
+<% if page_in_bounds?(@teams, @page_num - 1, ITEMS_PER_PAGE)%>
+  <a href="/teams/page/<%= @page_num - 1 %>"> Previous Page </a>
+<% end %>
+
+<% if page_in_bounds?(@teams, @page_num + 1, ITEMS_PER_PAGE)%>
+  <a href="/teams/page/<%= @page_num + 1 %>"> Next Page </a>
+<% end %>
+
+<form action="/teams" method="post" class="create">
+  <label for="team_name">Enter New Team Name:</label>
+  <input name="team_name" placeholder="New Team!" value="<%=@team_name%>" type="text">
+  <button type="submit">Add Team</button>
+  
+  <input type="hidden" value=<%= @page_num %> name="page_num">
+</form>

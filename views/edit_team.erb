@@ -1,0 +1,6 @@
+<form action="/teams/<%= @team_id%>" method="post" class="edit">
+  <label for="team_name">Edit Team Name</label>
+  <input name="team_name" value="<%= @team_name || @team[:name] %>" type="text">
+
+  <button type="submit">Submit New Name</button>
+</form>

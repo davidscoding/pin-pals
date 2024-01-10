@@ -1,0 +1,37 @@
+<ul id="team">
+  <h1> <%= @team[:name] %> Roster </h1>
+  <h1> Total Team Score: <%= @team[:points] %> </h1>
+
+  <% @page_players.each do |player| %>
+    <li>
+      <h2><%= player[:name] %></h2>
+
+      <p> Total Player score: <%= player[:points] %> </p>
+
+      <form action="/teams/<%= @team[:id]%>/players/<%= player[:id]%>/delete" method="post" class="delete">
+        <button type="submit">Delete Player</button>
+      </form>
+      <form action="/teams/<%= @team[:id]%>/players/<%= player[:id] %>/edit" method="get" class="edit">
+        <button type="submit">Edit Player</button>
+      </form>
+    </li>
+  <% end %>
+</ul>
+
+<% if page_in_bounds?(@players, @page_num - 1,ITEMS_PER_PAGE)%>
+  <a href="/teams/<%= @team_id%>/page/<%= @page_num - 1 %>"> Previous Page </a>
+<% end %>
+
+<% if page_in_bounds?(@players, @page_num + 1,ITEMS_PER_PAGE)%>
+  <a href="/teams/<%= @team_id%>/page/<%= @page_num + 1 %>"> Next Page </a>
+<% end %>
+
+<form action="/teams/<%= @team[:id]%>/players" method="post" class="create">
+  <label for="player_name">Enter Player Name:</label>
+  <input name="player_name" placeholder="New Bowler!" value="<%= @player_name %>" type="text">
+  <label for="points">Enter Player's Total Score for the Season:</label>
+  <input name="points" placeholder="0" value="<%= @points %>" type="text">
+  <button type="submit">Add Player</button>
+
+  <input type="hidden" value=<%= @page_num %> name="page_num">
+</form>
